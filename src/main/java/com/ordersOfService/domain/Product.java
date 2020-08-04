@@ -1,35 +1,45 @@
 package com.ordersOfService.domain;
 
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 
 @Entity
-public class Category implements Serializable {
+public class Product implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	private String name;
+	private Double price;
+	private Integer quantity;
 	
-	@ManyToMany(mappedBy="categories")
-	private Set<Product> products = new HashSet<Product>();
+	@ManyToMany
+	@JoinTable(name = "PRODUCT_CATEGORY",
+		joinColumns = @JoinColumn(name = "product_id"),
+		inverseJoinColumns = @JoinColumn(name = "category_id")
+	)
+	private List<Category> categories = new ArrayList<Category>();
 	
-	public Category() {
+	public Product() {
 		
 	}
 
-	public Category(Integer id, String name) {
+	public Product(Integer id, String name, Double price, Integer quantity) {
 		super();
 		this.id = id;
 		this.name = name;
+		this.price = price;
+		this.quantity = quantity;
 	}
 
 	public Integer getId() {
@@ -48,12 +58,28 @@ public class Category implements Serializable {
 		this.name = name;
 	}
 
-	public Set<Product> getProducts() {
-		return products;
+	public Double getPrice() {
+		return price;
 	}
 
-	public void setProducts(Set<Product> products) {
-		this.products = products;
+	public void setPrice(Double price) {
+		this.price = price;
+	}
+
+	public Integer getQuantity() {
+		return quantity;
+	}
+
+	public void setQuantity(Integer quantity) {
+		this.quantity = quantity;
+	}
+
+	public List<Category> getCategories() {
+		return categories;
+	}
+
+	public void setCategories(List<Category> categories) {
+		this.categories = categories;
 	}
 
 	@Override
@@ -72,7 +98,7 @@ public class Category implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Category other = (Category) obj;
+		Product other = (Product) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;

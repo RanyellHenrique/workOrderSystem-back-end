@@ -7,24 +7,24 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ordersOfService.Services.exceptions.ObjectNotFoundException;
-import com.ordersOfService.domain.Category;
-import com.ordersOfService.repositories.CategoryRepository;
+import com.ordersOfService.domain.Product;
+import com.ordersOfService.repositories.ProductRepository;
 
 @Service
-public class CategoryService {
+public class ProductService {
 	
 	@Autowired
-	private CategoryRepository repository;
+	private ProductRepository repository;
 	
 	
-	public List<Category> findAll(){
+	public List<Product> findAll(){
 		return repository.findAll();
 	}
 	
-	public Category findById(Integer id) {
-		Optional<Category> obj = repository.findById(id);
+	public Product findById(Integer id) {
+		Optional<Product> obj = repository.findById(id);
 		return obj.orElseThrow(() -> new ObjectNotFoundException(
-				"Not found, Id: " + id + ",type: " + Category.class.getName()));
+				"Not found, Id: " + id + ",type: " + Product.class.getName()));
 	}
 
 }
