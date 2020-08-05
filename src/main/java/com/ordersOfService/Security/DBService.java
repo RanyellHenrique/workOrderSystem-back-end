@@ -6,10 +6,12 @@ import java.util.Arrays;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.ordersOfService.domain.Address;
 import com.ordersOfService.domain.Category;
 import com.ordersOfService.domain.Client;
 import com.ordersOfService.domain.Employee;
 import com.ordersOfService.domain.Product;
+import com.ordersOfService.repositories.AddressRepository;
 import com.ordersOfService.repositories.CategoryRepository;
 import com.ordersOfService.repositories.ClientRepository;
 import com.ordersOfService.repositories.EmployeeRepository;
@@ -29,6 +31,9 @@ public class DBService {
 	
 	@Autowired
 	private ClientRepository clientRepository;
+	
+	@Autowired
+	private AddressRepository addressRepository;
 	
 	public void instantiateTestDatabase() throws ParseException {
 		
@@ -56,8 +61,11 @@ public class DBService {
 		
 		Client cli1 = new Client(null, "Abcdee", "Abcdee@gmail.com", "05899753210");
 		
+		Address ad1 = new Address(null, "72310422", "DF", "Brasilia", "Samambaia", "305", "conjunto 10", cli1);
+		cli1.setAddress(ad1);
 		employeeRepository.saveAll(Arrays.asList(em1, em2));
 		clientRepository.saveAll(Arrays.asList(cli1));
+		addressRepository.saveAll(Arrays.asList(ad1));
 
 	}
 
