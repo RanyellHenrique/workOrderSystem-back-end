@@ -38,6 +38,4 @@ public class Client  extends Person{
 		this.address = address;
 	}
 	
-	
-
 }
