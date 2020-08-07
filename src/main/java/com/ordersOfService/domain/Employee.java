@@ -1,6 +1,10 @@
 package com.ordersOfService.domain;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.Entity;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Employee extends Person {
@@ -8,6 +12,9 @@ public class Employee extends Person {
 	
 	private String password;
 	private String cpf;
+	
+	@OneToMany(mappedBy="responsible")
+	private List<Order> orders = new ArrayList<Order>();
 	
 	public Employee() {
 		
@@ -35,4 +42,12 @@ public class Employee extends Person {
 		this.cpf = cpf;
 	}
 
+	public List<Order> getOrders() {
+		return orders;
+	}
+
+	public void setOrders(List<Order> orders) {
+		this.orders = orders;
+	}
+	
 }

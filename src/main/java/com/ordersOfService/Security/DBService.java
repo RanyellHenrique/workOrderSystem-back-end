@@ -2,6 +2,7 @@ package com.ordersOfService.Security;
 
 import java.text.ParseException;
 import java.util.Arrays;
+import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -10,11 +11,19 @@ import com.ordersOfService.domain.Address;
 import com.ordersOfService.domain.Category;
 import com.ordersOfService.domain.Client;
 import com.ordersOfService.domain.Employee;
+import com.ordersOfService.domain.Order;
+import com.ordersOfService.domain.Payment;
+import com.ordersOfService.domain.PaymentByCard;
+import com.ordersOfService.domain.PaymentBySlip;
 import com.ordersOfService.domain.Product;
+import com.ordersOfService.domain.enums.OrderStatus;
+import com.ordersOfService.domain.enums.PaymentStatus;
 import com.ordersOfService.repositories.AddressRepository;
 import com.ordersOfService.repositories.CategoryRepository;
 import com.ordersOfService.repositories.ClientRepository;
 import com.ordersOfService.repositories.EmployeeRepository;
+import com.ordersOfService.repositories.OrderRepository;
+import com.ordersOfService.repositories.PaymentRepository;
 import com.ordersOfService.repositories.ProductRepository;
 
 @Service
@@ -34,6 +43,11 @@ public class DBService {
 	
 	@Autowired
 	private AddressRepository addressRepository;
+	
+	@Autowired
+	private PaymentRepository paymentRepository;
+	
+	@Autowired OrderRepository orderRepository;
 	
 	public void instantiateTestDatabase() throws ParseException {
 		
@@ -57,16 +71,29 @@ public class DBService {
 		productRepository.saveAll(Arrays.asList(p1, p2, p3));
 		
 		Employee em1 = new Employee(null, "Ranyell", "Ranyell@gmail.com", "05187022199", "12345");
-		Employee em2 = new Employee(null, "Abcdee", "Abcdee@gmail.com", "05899753210", "65478");
+		Employee em2 = new Employee(null, "Ronaldo", "ronaldo@gmail.com", "85397833599", "65478");
 		
 		Client cli1 = new Client(null, "Abcdee", "Abcdee@gmail.com", "05899753210");
+		Client cli2 = new Client(null, "Abcdee", "Abcdee@gmail.com", "95899753210");
 		
 		Address ad1 = new Address(null, "72310422", "DF", "Brasilia", "Samambaia", "305", "conjunto 10", cli1);
 		cli1.setAddress(ad1);
+		
 		employeeRepository.saveAll(Arrays.asList(em1, em2));
-		clientRepository.saveAll(Arrays.asList(cli1));
+		clientRepository.saveAll(Arrays.asList(cli1, cli2));
 		addressRepository.saveAll(Arrays.asList(ad1));
-
+		
+		Order or1 = new Order(null, new Date(), new Date(), OrderStatus.OPEN, cli2, em1);
+		Order or2 = new Order(null, new Date(), new Date(), OrderStatus.OPEN, cli1, em2);
+		
+		Payment pay1 = new PaymentByCard(1 , PaymentStatus.PEDING, 3, or1);
+		or1.setPayment(pay1);
+		
+		Payment pay2 = new PaymentByCard(2 , PaymentStatus.PEDING, 4, or2);
+		or2.setPayment(pay2);
+		
+		orderRepository.saveAll(Arrays.asList(or1, or2));
+		paymentRepository.saveAll(Arrays.asList(pay1, pay2));
+		
 	}
-
 }
