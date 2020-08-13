@@ -1,7 +1,9 @@
 package com.ordersOfService.domain;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -10,6 +12,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 import com.ordersOfService.domain.enums.OrderStatus;
@@ -35,6 +38,9 @@ public class Order implements Serializable {
 	@ManyToOne
 	@JoinColumn(name="client_id")
 	private Client client;
+	
+	@OneToMany(mappedBy = "order")
+	private List<OrderItem> orderItems = new ArrayList<OrderItem>();
 	
 	public Order() {
 		
@@ -105,6 +111,14 @@ public class Order implements Serializable {
 
 	public void setResponsible(Employee responsible) {
 		this.responsible = responsible;
+	}
+
+	public List<OrderItem> getOrderItems() {
+		return orderItems;
+	}
+
+	public void setOrderItems(List<OrderItem> orderItems) {
+		this.orderItems = orderItems;
 	}
 
 	@Override

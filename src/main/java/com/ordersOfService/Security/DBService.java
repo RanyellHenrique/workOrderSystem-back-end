@@ -12,19 +12,23 @@ import com.ordersOfService.domain.Category;
 import com.ordersOfService.domain.Client;
 import com.ordersOfService.domain.Employee;
 import com.ordersOfService.domain.Order;
+import com.ordersOfService.domain.OrderItem;
 import com.ordersOfService.domain.Payment;
 import com.ordersOfService.domain.PaymentByCard;
 import com.ordersOfService.domain.PaymentBySlip;
 import com.ordersOfService.domain.Product;
+import com.ordersOfService.domain.ProductUsed;
 import com.ordersOfService.domain.enums.OrderStatus;
 import com.ordersOfService.domain.enums.PaymentStatus;
 import com.ordersOfService.repositories.AddressRepository;
 import com.ordersOfService.repositories.CategoryRepository;
 import com.ordersOfService.repositories.ClientRepository;
 import com.ordersOfService.repositories.EmployeeRepository;
+import com.ordersOfService.repositories.OrderItemRepository;
 import com.ordersOfService.repositories.OrderRepository;
 import com.ordersOfService.repositories.PaymentRepository;
 import com.ordersOfService.repositories.ProductRepository;
+import com.ordersOfService.repositories.ProductUsedRepository;
 
 @Service
 public class DBService {
@@ -47,7 +51,14 @@ public class DBService {
 	@Autowired
 	private PaymentRepository paymentRepository;
 	
-	@Autowired OrderRepository orderRepository;
+	@Autowired 
+	private OrderRepository orderRepository;
+	
+	@Autowired
+	private OrderItemRepository orderItemRepository;
+	
+	@Autowired
+	private ProductUsedRepository productUsedRepository;
 	
 	public void instantiateTestDatabase() throws ParseException {
 		
@@ -85,15 +96,31 @@ public class DBService {
 		
 		Order or1 = new Order(null, new Date(), new Date(), OrderStatus.OPEN, cli2, em1);
 		Order or2 = new Order(null, new Date(), new Date(), OrderStatus.OPEN, cli1, em2);
+		Order or3 = new Order(null, new Date(), new Date(), OrderStatus.OPEN, cli2, em2);
 		
-		Payment pay1 = new PaymentByCard(1 , PaymentStatus.PEDING, 3, or1);
+		Payment pay1 = new PaymentByCard(null , PaymentStatus.SETTLED, 3, or1);
 		or1.setPayment(pay1);
 		
-		Payment pay2 = new PaymentByCard(2 , PaymentStatus.PEDING, 4, or2);
+		Payment pay2 = new PaymentByCard(null , PaymentStatus.PEDING, 4, or2);
 		or2.setPayment(pay2);
 		
-		orderRepository.saveAll(Arrays.asList(or1, or2));
-		paymentRepository.saveAll(Arrays.asList(pay1, pay2));
+		Payment pay3 = new PaymentBySlip(null, PaymentStatus.CANCELED, or3, new Date(), new Date());
+		or3.setPayment(pay3);
+		
+		orderRepository.saveAll(Arrays.asList(or1, or2, or3));
+		paymentRepository.saveAll(Arrays.asList(pay1, pay2, pay3));
+		
+		OrderItem orIt1 = new OrderItem(null, "Problem.....", p1, or1);
+		OrderItem orIt2 = new OrderItem(null, "Problem.....", p3, or2);
+		OrderItem orIt3 = new OrderItem(null, "Problem.....", p2, or3);
+		
+		orderItemRepository.saveAll(Arrays.asList(orIt1, orIt2, orIt3));
+		
+		ProductUsed proU1 = new ProductUsed(2, 45.37, p1, orIt3);
+		ProductUsed proU2 = new ProductUsed(1, 35.80, p2, orIt1);
+		ProductUsed proU3 = new ProductUsed(3, 2040.39, p3, orIt2);
+		
+		productUsedRepository.saveAll(Arrays.asList(proU1, proU2, proU3));
 		
 	}
 }

@@ -7,6 +7,7 @@ import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
+import javax.persistence.MapsId;
 import javax.persistence.OneToOne;
 
 import com.ordersOfService.domain.enums.PaymentStatus;
@@ -22,6 +23,7 @@ public abstract class Payment implements Serializable {
 	
 	@OneToOne
 	@JoinColumn(name="order_id")
+	@MapsId
 	private Order order;
 	
 	public Payment() {
