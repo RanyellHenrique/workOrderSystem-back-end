@@ -19,7 +19,7 @@ public class OrderItem implements Serializable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	private String technicalReport;
+	private String description;
 	
 	@ManyToOne
 	@JoinColumn(name="product_id")
@@ -36,10 +36,10 @@ public class OrderItem implements Serializable{
 		
 	}
 
-	public OrderItem(Integer id, String technicalReport, Product product, Order order) {
+	public OrderItem(Integer id, String description, Product product, Order order) {
 		super();
 		this.id = id;
-		this.technicalReport = technicalReport;
+		this.description = description;
 		this.product = product;
 		this.order = order;
 	}
@@ -52,12 +52,12 @@ public class OrderItem implements Serializable{
 		this.id = id;
 	}
 
-	public String getTechnicalReport() {
-		return technicalReport;
+	public String getDescription() {
+		return description;
 	}
 
-	public void setTechnicalReport(String technicalReport) {
-		this.technicalReport = technicalReport;
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
 	public Product getProduct() {

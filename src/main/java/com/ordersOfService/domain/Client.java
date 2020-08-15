@@ -1,9 +1,13 @@
 package com.ordersOfService.domain;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
+import javax.persistence.CollectionTable;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
@@ -19,6 +23,10 @@ public class Client  extends Person{
 	
 	@OneToMany(mappedBy="client")
 	private List<Order> orders = new ArrayList<Order>();
+	
+	@ElementCollection
+	@CollectionTable(name="PHONE")
+	private Set<String> phones = new HashSet<>();
 
 	public Client() {
 		
@@ -52,4 +60,13 @@ public class Client  extends Person{
 	public void setOrders(List<Order> orders) {
 		this.orders = orders;
 	}
+
+	public Set<String> getPhones() {
+		return phones;
+	}
+
+	public void setPhones(Set<String> phones) {
+		this.phones = phones;
+	}
+	
 }
