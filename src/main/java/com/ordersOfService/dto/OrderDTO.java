@@ -21,7 +21,6 @@ public class OrderDTO implements Serializable {
 		this.status = obj.getStatus().getCod();
 	}
 	
-	
 	public Integer getId() {
 		return id;
 	}
@@ -54,5 +53,4 @@ public class OrderDTO implements Serializable {
 		this.status = status;
 	}
 	
-
 }

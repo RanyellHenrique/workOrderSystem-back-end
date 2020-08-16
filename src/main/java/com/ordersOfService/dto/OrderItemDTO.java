@@ -57,5 +57,9 @@ public class OrderItemDTO implements Serializable{
 	public void setProductsUsed(List<ProductUsedDTO> productsUsed) {
 		this.productsUsed = productsUsed;
 	}
+	
+	public Double getSubTotal() {
+		return this.productsUsed.stream().map(a -> a.getPrice() * a.getQuantity()).reduce(0.0, (a, b) -> a + b);
+	}
 
 }

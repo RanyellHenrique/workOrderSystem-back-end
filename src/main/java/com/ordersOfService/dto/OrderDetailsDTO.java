@@ -55,5 +55,8 @@ public class OrderDetailsDTO extends OrderDTO {
 		this.orderItems = orderItems;
 	}
 
+	public Double getTotal() {
+		return this.orderItems.stream().map(a -> a.getSubTotal()).reduce(0.0, (a, b) -> a + b);
+	}
 	
 }
