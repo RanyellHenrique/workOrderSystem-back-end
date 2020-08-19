@@ -93,9 +93,12 @@ public class DBService {
 		Address ad1 = new Address(null, "72310422", "DF", "Brasilia", "Samambaia", "305", "conjunto 10", cli1);
 		cli1.setAddress(ad1);
 		
+		Address ad2 = new Address(null, "792058416", "SP", "Campinas", "Centro", "079", "conjunto 25 casa 37", cli2);
+		cli2.setAddress(ad2);
+		
 		employeeRepository.saveAll(Arrays.asList(em1, em2));
 		clientRepository.saveAll(Arrays.asList(cli1, cli2));
-		addressRepository.saveAll(Arrays.asList(ad1));
+		addressRepository.saveAll(Arrays.asList(ad1, ad2));
 		
 		Order or1 = new Order(null, new Date(), new Date(), OrderStatus.OPEN, cli2, em1);
 		Order or2 = new Order(null, new Date(), new Date(), OrderStatus.OPEN, cli1, em2);

@@ -20,7 +20,7 @@ public class Address implements Serializable {
 	private String state;
 	private String city;
 	private String neighborhood;
-	private String Street;
+	private String street;
 	private String complement;
 	
 	@OneToOne
@@ -39,7 +39,7 @@ public class Address implements Serializable {
 		this.state = state;
 		this.city = city;
 		this.neighborhood = neighborhood;
-		Street = street;
+		this.street = street;
 		this.complement = complement;
 		this.client = client;
 	}
@@ -85,11 +85,11 @@ public class Address implements Serializable {
 	}
 
 	public String getStreet() {
-		return Street;
+		return street;
 	}
 
 	public void setStreet(String street) {
-		Street = street;
+		this.street = street;
 	}
 
 	public String getComplement() {
