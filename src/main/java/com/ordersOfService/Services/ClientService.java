@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.ordersOfService.Services.exceptions.ObjectNotFoundException;
 import com.ordersOfService.domain.Address;
 import com.ordersOfService.domain.Client;
+import com.ordersOfService.dto.ClientDTO;
 import com.ordersOfService.dto.ClientNewDTO;
 import com.ordersOfService.repositories.AddressRepository;
 import com.ordersOfService.repositories.ClientRepository;
@@ -22,7 +23,6 @@ public class ClientService {
 	
 	@Autowired
 	private AddressRepository addressRepository;
-	
 	
 	public List<Client> findAll(){
 		return repository.findAll();
@@ -42,6 +42,18 @@ public class ClientService {
 		return obj;
 	}
 	
+	public Client update(Client obj) {
+		Optional<Client> newObj = repository.findById(obj.getId());
+		updateData(obj, newObj.get());
+		return repository.save(newObj.get());
+	}
+	
+	
+	public void updateData(Client obj, Client newObj) {
+		newObj.setEmail(obj.getEmail());
+		newObj.setName(obj.getName());
+	}
+	
 	public Client fromDTO(ClientNewDTO objDto) {
 		Client cli = new Client(null, objDto.getName(), objDto.getEmail(), objDto.getCpfCnpj());
 		Address address = new Address(null, objDto.getCep(), objDto.getState(), objDto.getCity(), objDto.getNeighborhood(), objDto.getStreet(), objDto.getComplement(), cli);
@@ -49,5 +61,8 @@ public class ClientService {
 		cli.setAddress(address);
 		return cli;
 	}
-
+	
+	public Client fromDTO(ClientDTO obj) {
+		return new Client(obj.getId(), obj.getName(), obj.getEmail(), obj.getCpfCnpj());
+	}
 }

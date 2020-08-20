@@ -12,7 +12,7 @@ public class AddressDTO implements Serializable{
 	private String state;
 	private String city;
 	private String neighborhood;
-	private String Street;
+	private String street;
 	private String complement;
 	
 	public AddressDTO() {
@@ -25,7 +25,7 @@ public class AddressDTO implements Serializable{
 		this.state = obj.getState();
 		this.city = obj.getCity();
 		this.neighborhood = obj.getNeighborhood();
-		this.Street = obj.getStreet();
+		this.street = obj.getStreet();
 		this.complement = obj.getComplement();
 		
 	}
@@ -71,11 +71,11 @@ public class AddressDTO implements Serializable{
 	}
 
 	public String getStreet() {
-		return Street;
+		return street;
 	}
 
 	public void setStreet(String street) {
-		Street = street;
+		this.street = street;
 	}
 
 	public String getComplement() {

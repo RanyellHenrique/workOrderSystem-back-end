@@ -144,6 +144,5 @@ public class ClientNewDTO implements Serializable{
 	public void setPhone(String phone) {
 		this.phone = phone;
 	}
-	
 
 }

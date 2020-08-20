@@ -1,19 +1,21 @@
 package com.ordersOfService.resources;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ordersOfService.Services.ProductService;
 import com.ordersOfService.domain.Product;
 import com.ordersOfService.dto.ProductDTO;
 import com.ordersOfService.dto.ProductDetailsDTO;
+import com.ordersOfService.resources.util.URL;
 
 
 
@@ -24,18 +26,26 @@ public class ProductResource {
 	@Autowired
 	private ProductService service;
 	
-	@GetMapping
-	public ResponseEntity<List<ProductDTO>> findAll(){
-		List<Product> list = service.findAll();
-		List<ProductDTO> listDTO = list.stream().map(obj -> new ProductDTO(obj)).collect(Collectors.toList());
-		return ResponseEntity.ok().body(listDTO);
-	}
-	
 	@GetMapping(value = "/{id}")
 	public ResponseEntity<ProductDetailsDTO> findById(@PathVariable Integer id){
 		Product obj = service.findById(id);
 		ProductDetailsDTO objDTO = new ProductDetailsDTO(obj);
 		return ResponseEntity.ok().body(objDTO);
+	}
+	
+	@GetMapping
+	public ResponseEntity<Page<ProductDTO>> findPage(
+			@RequestParam(value="name", defaultValue="") String name, 
+			@RequestParam(value="categories", defaultValue="1") String categories, 
+			@RequestParam(value="page", defaultValue="0") Integer page, 
+			@RequestParam(value="linesPerPage", defaultValue="24") Integer linesPerPage, 
+			@RequestParam(value="orderBy", defaultValue="name") String orderBy, 
+			@RequestParam(value="direction", defaultValue="ASC") String direction) {
+		String nameDecoded = URL.decodeParam(name);
+		List<Integer> ids = URL.decodeIntList(categories);
+		Page<Product> list = service.search(nameDecoded, ids, page, linesPerPage, orderBy, direction);
+		Page<ProductDTO> listDto = list.map(obj -> new ProductDTO(obj));  
+		return ResponseEntity.ok().body(listDto);
 	}
 
 }
