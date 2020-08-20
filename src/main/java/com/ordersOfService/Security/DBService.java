@@ -84,10 +84,10 @@ public class DBService {
 		Employee em1 = new Employee(null, "Ranyell", "Ranyell@gmail.com", "05187022199", "12345");
 		Employee em2 = new Employee(null, "Ronaldo", "ronaldo@gmail.com", "85397833599", "65478");
 		
-		Client cli1 = new Client(null, "Abcdee", "Abcdee@gmail.com", "05899753210");
+		Client cli1 = new Client(null, "Ranyell", "Abcdee@gmail.com", "05899753210");
 		cli1.getPhones().add("3349-7038");
 		
-		Client cli2 = new Client(null, "Abcdee", "Abcdee@gmail.com", "95899753210");
+		Client cli2 = new Client(null, "Marcos", "Abcdee@gmail.com", "95899753210");
 		cli2.getPhones().add("3745-5659");
 		
 		Address ad1 = new Address(null, "72310422", "DF", "Brasilia", "Samambaia", "305", "conjunto 10", cli1);

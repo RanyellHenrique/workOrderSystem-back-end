@@ -48,7 +48,6 @@ public class ClientService {
 		return repository.save(newObj.get());
 	}
 	
-	
 	public void updateData(Client obj, Client newObj) {
 		newObj.setEmail(obj.getEmail());
 		newObj.setName(obj.getName());
