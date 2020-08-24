@@ -1,4 +1,4 @@
-package com.ordersOfService.Services;
+package com.ordersOfService.services;
 
 import java.util.List;
 import java.util.Optional;
@@ -6,10 +6,10 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.ordersOfService.Services.exceptions.ObjectNotFoundException;
 import com.ordersOfService.domain.Category;
 import com.ordersOfService.dto.CategoryDTO;
 import com.ordersOfService.repositories.CategoryRepository;
+import com.ordersOfService.services.exceptions.ObjectNotFoundException;
 
 @Service
 public class CategoryService {
@@ -29,12 +29,20 @@ public class CategoryService {
 	
 	public Category insert(Category obj) {
 		obj.setId(null);
-		System.out.println(obj.getName());
 		return repository.save(obj);
+	}
+	
+	public Category update(Category obj) {
+		Category newObj = repository.findById(obj.getId()).get();
+		updateData(newObj, obj);
+		return repository.save(newObj);
+	}
+	
+	public void updateData(Category newObj, Category obj) {
+		newObj.setName(obj.getName());
 	}
 	
 	public Category fromDTO(CategoryDTO objDto) {
 		return new Category(objDto.getId(), objDto.getName());
 	}
-
 }

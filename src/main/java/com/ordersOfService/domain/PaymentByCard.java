@@ -2,9 +2,11 @@ package com.ordersOfService.domain;
 
 import javax.persistence.Entity;
 
+import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.ordersOfService.domain.enums.PaymentStatus;
 
 @Entity
+@JsonTypeName("PaymentByCard")
 public class PaymentByCard extends Payment {
 	private static final long serialVersionUID = 1L;
 	
@@ -19,8 +21,6 @@ public class PaymentByCard extends Payment {
 		this.plots = plots;
 	}
 
-
-
 	public Integer getPlots() {
 		return plots;
 	}
@@ -29,6 +29,4 @@ public class PaymentByCard extends Payment {
 		this.plots = plots;
 	}
 	
-	
-
 }

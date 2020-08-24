@@ -1,4 +1,4 @@
-package com.ordersOfService.Security;
+package com.ordersOfService.security;
 
 import java.text.ParseException;
 import java.util.Arrays;
@@ -125,8 +125,9 @@ public class DBService {
 		ProductUsed proU1 = new ProductUsed(2, 45.37, p1, orIt3);
 		ProductUsed proU2 = new ProductUsed(1, 35.80, p2, orIt1);
 		ProductUsed proU3 = new ProductUsed(3, 2040.39, p3, orIt2);
+		ProductUsed proU4 = new ProductUsed(3, 2040.39, p2, orIt2);
 		
-		productUsedRepository.saveAll(Arrays.asList(proU1, proU2, proU3));
+		productUsedRepository.saveAll(Arrays.asList(proU1, proU2, proU3, proU4));
 		
 	}
 }

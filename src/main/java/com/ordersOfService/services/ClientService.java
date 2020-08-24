@@ -1,4 +1,4 @@
-package com.ordersOfService.Services;
+package com.ordersOfService.services;
 
 import java.util.List;
 import java.util.Optional;
@@ -7,13 +7,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.ordersOfService.Services.exceptions.ObjectNotFoundException;
 import com.ordersOfService.domain.Address;
 import com.ordersOfService.domain.Client;
 import com.ordersOfService.dto.ClientDTO;
 import com.ordersOfService.dto.ClientNewDTO;
 import com.ordersOfService.repositories.AddressRepository;
 import com.ordersOfService.repositories.ClientRepository;
+import com.ordersOfService.services.exceptions.ObjectNotFoundException;
 
 @Service
 public class ClientService {
@@ -43,9 +43,9 @@ public class ClientService {
 	}
 	
 	public Client update(Client obj) {
-		Optional<Client> newObj = repository.findById(obj.getId());
-		updateData(obj, newObj.get());
-		return repository.save(newObj.get());
+		Client newObj = repository.findById(obj.getId()).get();
+		updateData(obj, newObj);
+		return repository.save(newObj);
 	}
 	
 	public void updateData(Client obj, Client newObj) {

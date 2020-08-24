@@ -4,9 +4,11 @@ import java.util.Date;
 
 import javax.persistence.Entity;
 
+import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.ordersOfService.domain.enums.PaymentStatus;
 
 @Entity
+@JsonTypeName("PaymentBySlip")
 public class PaymentBySlip extends Payment {
 	private static final long serialVersionUID = 1L;
 	

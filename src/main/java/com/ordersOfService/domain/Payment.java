@@ -11,10 +11,12 @@ import javax.persistence.MapsId;
 import javax.persistence.OneToOne;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.ordersOfService.domain.enums.PaymentStatus;
 
 @Entity
 @Inheritance(strategy=InheritanceType.JOINED)
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "@type")
 public abstract class Payment implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
@@ -49,8 +51,8 @@ public abstract class Payment implements Serializable {
 		return PaymentStatus.toEnum(this.status);
 	}
 	
-	public void setStatus(Integer status) {
-		this.status = status;
+	public void setStatus(PaymentStatus status) {
+		this.status = status.getCod();
 	}
 
 	@JsonIgnore

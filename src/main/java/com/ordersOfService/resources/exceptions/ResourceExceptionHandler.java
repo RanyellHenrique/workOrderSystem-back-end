@@ -9,7 +9,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
-import com.ordersOfService.Services.exceptions.ObjectNotFoundException;
+import com.ordersOfService.services.exceptions.ObjectNotFoundException;
 
 @ControllerAdvice
 public class ResourceExceptionHandler {

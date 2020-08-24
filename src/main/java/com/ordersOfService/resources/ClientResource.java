@@ -17,11 +17,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import com.ordersOfService.Services.ClientService;
 import com.ordersOfService.domain.Client;
 import com.ordersOfService.dto.ClientDTO;
 import com.ordersOfService.dto.ClientDetailsDTO;
 import com.ordersOfService.dto.ClientNewDTO;
+import com.ordersOfService.services.ClientService;
 
 
 @RestController
